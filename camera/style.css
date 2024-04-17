@@ -55,10 +55,14 @@ p.ret-element {
   justify-content: center;
 }
 
-#wrap {
+/* #wrap {
   position: relative;
   overflow: hidden;
   margin-bottom: 2%;
+} */
+
+#photo_container>div {
+  position: relative;
 }
 
 img {
@@ -69,8 +73,12 @@ img {
 
 span {
   position: absolute;
-  top: 50px;
-
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  font-family: 'icomoon';
+  font-size: 30px;
+  color: pink;
 }
 
 @keyframes recodding {
@@ -108,12 +116,6 @@ span {
   font-display: block;
 }
 
-span {
-  font-family: 'icomoon';
-  font-size: 30px;
-  color: pink;
-}
-
-.icon-cancel-circle:before {
+.icon-cancel-circle:after {
   content: "\ea0d";
 }

@@ -5,9 +5,9 @@ const video = document.querySelector('#video');
 // 首先创建一个空白的 canvas 元素，元素的宽高设置为和 video 标签一致。
 const canvas = document.createElement('canvas');
 
-let photoContainer = document.getElementById("wrap");
+let photoContainer = document.getElementById("photo_container");
 
-let images = document.getElementById('wrap').getElementsByTagName('img');
+let images = document.getElementById('photo_container').getElementsByTagName('img');
 
 // 初始化摄像头
 initVideoCamera();
@@ -83,10 +83,15 @@ function calcDrawSize() {
 }
 
 function addPhotoHtml(canvas) {
+  const div = document.createElement("div");
   const img = document.createElement("img");
+  const span = document.createElement("span");
+  span.className = 'icon-cancel-circle';
   img.src = canvas.toDataURL("image/png");
   // img.style.border = "1px solid black";
   // img.style.width = "320px";
   // img.style.height = "240px";
-  photoContainer.appendChild(img);
+  div.appendChild(img);
+  div.appendChild(span)
+  photoContainer.appendChild(div);
 }
