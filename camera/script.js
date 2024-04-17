@@ -18,6 +18,8 @@ function initVideoCamera() {
   // HTML5的getUserMedia API为用户提供访问硬件设备媒体（摄像头、视频、音频、地理位置等）的接口，
   // 基于该接口，开发者可以在不依赖任何浏览器插件的条件下访问硬件媒体设备。 
   // リアカメラをデフォルトに設定
+  // { facingMode: { exact: 'environment' } }
+  // video: true
   navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } }, audio: false })
     .then((stream) => {
       video.srcObject = stream;
@@ -36,9 +38,10 @@ function initPhoto() {
   const context = canvas.getContext("2d");
   context.fillStyle = "#AAA";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  document.querySelector("#photo").src = canvas.toDataURL("image/png");
+  document.querySelector("#photo1").src = canvas.toDataURL("image/png");
 }
 
+let photo_count = 0
 /**
  * 写真の撮影描画
  */
@@ -50,7 +53,10 @@ function photoShoot() {
   const context = canvas.getContext("2d");
   //将 canvas 投到页面上
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  document.querySelector("#photo").src = canvas.toDataURL("image/png");
+  if (photo_count === 3) {
+    photo_count = 0
+  }
+  document.querySelector(`#photo${++photo_count}`).src = canvas.toDataURL("image/png");
 }
 
 /**
@@ -63,10 +69,4 @@ function calcDrawSize() {
   return videoRatio > viewRatio ?
     { height: video.clientHeight, width: video.clientHeight / videoRatio }
     : { height: video.clientWidth * videoRatio, width: video.clientWidth }
-}
-
-function stopMediaTracks(stream) {
-  stream.getTracks().forEach(track => {
-    track.stop();
-  });
 }
