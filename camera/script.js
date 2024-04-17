@@ -5,6 +5,10 @@ const video = document.querySelector('#video');
 // 首先创建一个空白的 canvas 元素，元素的宽高设置为和 video 标签一致。
 const canvas = document.createElement('canvas');
 
+let photoArr = [];
+
+let photoContainer = document.getElementById("wrap");
+
 // 初始化摄像头
 initVideoCamera();
 // 初始化图片
@@ -38,10 +42,8 @@ function initPhoto() {
   const context = canvas.getContext("2d");
   context.fillStyle = "#AAA";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  document.querySelector("#photo1").src = canvas.toDataURL("image/png");
 }
 
-let photo_count = 0
 /**
  * 写真の撮影描画
  */
@@ -53,10 +55,12 @@ function photoShoot() {
   const context = canvas.getContext("2d");
   //将 canvas 投到页面上
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  if (photo_count === 3) {
-    photo_count = 0
+  if (photoArr.length >= 3) {
+    // 报错：已到上传个数上限，无法继续添加，并返回
+    return alert("已到上传个数上限，无法继续添加");
   }
-  document.querySelector(`#photo${++photo_count}`).src = canvas.toDataURL("image/png");
+  addPhotoArr(canvas);
+  addPhotoHtml(canvas);
 }
 
 /**
@@ -69,4 +73,23 @@ function calcDrawSize() {
   return videoRatio > viewRatio ?
     { height: video.clientHeight, width: video.clientHeight / videoRatio }
     : { height: video.clientWidth * videoRatio, width: video.clientWidth }
+}
+
+function addPhotoHtml(canvas) {
+  const img = document.createElement("img");
+  img.src = canvas.toDataURL("image/png");
+  img.style.border = "1px solid black";
+  img.style.width = "320px";
+  img.style.height = "240px";
+  photoContainer.appendChild(img);
+}
+
+// 添加
+function addPhotoArr(canvas) {
+  photoArr.push(canvas);
+}
+
+// 删除
+function deletePhotoArr(index) {
+  photoArr.splice(index - 1, index);
 }

@@ -15,14 +15,6 @@ body {
   height: 240px;
 }
 
-#photo1,
-#photo2,
-#photo3{
-  border: 1px solid black;
-  width: 320px;
-  height: 240px;
-}
-
 #movie {
   border: 1px solid black;
   width: 320px;
@@ -57,13 +49,13 @@ p.ret-element {
   margin-top: 0;
 }
 
-.photo_container {
+#photo_container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.wrap {
+#wrap {
   position: relative;
   overflow: hidden;
   margin-bottom: 2%;
