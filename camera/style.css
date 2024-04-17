@@ -4,10 +4,10 @@ body {
   text-align: center;
 }
 
-.flex-row {
+/* .flex-row {
   display: flex;
   justify-content: center;
-}
+} */
 
 #video {
   border: 1px solid black;
@@ -15,7 +15,9 @@ body {
   height: 240px;
 }
 
-#photo {
+#photo1,
+#photo2,
+#photo3{
   border: 1px solid black;
   width: 320px;
   height: 240px;
@@ -53,6 +55,18 @@ body {
 
 p.ret-element {
   margin-top: 0;
+}
+
+.pictures-adaptive {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wrap {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2%;
 }
 
 @keyframes recodding {
