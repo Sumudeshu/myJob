@@ -85,8 +85,8 @@ function calcDrawSize() {
 function addPhotoHtml(canvas) {
   const img = document.createElement("img");
   img.src = canvas.toDataURL("image/png");
-  img.style.border = "1px solid black";
-  img.style.width = "320px";
-  img.style.height = "240px";
+  // img.style.border = "1px solid black";
+  // img.style.width = "320px";
+  // img.style.height = "240px";
   photoContainer.appendChild(img);
 }
