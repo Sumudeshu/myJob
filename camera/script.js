@@ -17,7 +17,8 @@ document.querySelector('#shoot').addEventListener('click', photoShoot);
 function initVideoCamera() {
   // HTML5的getUserMedia API为用户提供访问硬件设备媒体（摄像头、视频、音频、地理位置等）的接口，
   // 基于该接口，开发者可以在不依赖任何浏览器插件的条件下访问硬件媒体设备。 
-  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  // リアカメラをデフォルトに設定
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } }, audio: false })
     .then((stream) => {
       video.srcObject = stream;
       video.play();
@@ -62,4 +63,10 @@ function calcDrawSize() {
   return videoRatio > viewRatio ?
     { height: video.clientHeight, width: video.clientHeight / videoRatio }
     : { height: video.clientWidth * videoRatio, width: video.clientWidth }
+}
+
+function stopMediaTracks(stream) {
+  stream.getTracks().forEach(track => {
+    track.stop();
+  });
 }
