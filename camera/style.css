@@ -57,7 +57,7 @@ p.ret-element {
   margin-top: 0;
 }
 
-.pictures-adaptive {
+.photo_container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -20,7 +20,7 @@ function initVideoCamera() {
   // リアカメラをデフォルトに設定
   // { facingMode: { exact: 'environment' } }
   // video: true
-  navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } }, audio: false })
+  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then((stream) => {
       video.srcObject = stream;
       video.play();
