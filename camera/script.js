@@ -8,20 +8,12 @@ const canvas = document.createElement('canvas');
 let photoContainer = document.getElementById("photo_container");
 
 let images = document.getElementById('photo_container').getElementsByTagName('img');
-
+let spans = document.getElementsByTagName('span');
 // 初始化摄像头
 initVideoCamera();
 // 初始化图片
 initPhoto();
 document.querySelector('#shoot').addEventListener('click', photoShoot);
-
-document.getElementById('delete-button').addEventListener('click', function () {
-  for (let i = 0; i < images.length; i++) {
-    images[i].addEventListener('click', function () {
-      this.parentNode.removeChild(this);
-    });
-  }
-});
 
 /**
  * ビデオのカメラ設定(デバイスのカメラ映像をビデオに表示)
@@ -94,4 +86,10 @@ function addPhotoHtml(canvas) {
   div.appendChild(img);
   div.appendChild(span)
   photoContainer.appendChild(div);
+
+  // 增加点击span后删除图片的监听事件
+  // 点×了以后，直接删除父类div就行
+  span.addEventListener('click', function () {
+    div.parentNode.removeChild(div);
+  })
 }
