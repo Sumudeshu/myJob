@@ -57,7 +57,7 @@ function photoShoot() {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   if (images.length >= 3) {
     // 报错：已到上传个数上限，无法继续添加，并返回
-    return alert("已到上传个数上限，无法继续添加");
+    return alert("追加できません。アップロードできる数は9枚までです。");
   }
   addPhotoHtml(canvas);
 }
@@ -87,6 +87,9 @@ function addPhotoHtml(canvas) {
   // 增加点击span后删除图片的监听事件
   // 点×了以后，直接删除父类div就行
   span.addEventListener('click', function () {
+    if (!window.confirm("この写真を削除してもよろしいですか？")) {
+      return;
+    }
     div.parentNode.removeChild(div);
   })
   // 放大
@@ -120,6 +123,9 @@ function addPhotoHtml(canvas) {
     
   
     span.addEventListener('click', function () {
+      if (!window.confirm("この写真を削除してもよろしいですか？")) {
+        return;
+      }
       div.parentNode.removeChild(div);
       document.body.removeChild(this);
       document.body.removeChild(oimg);
