@@ -32,7 +32,7 @@ function initVideoCamera() {
   // リアカメラをデフォルトに設定
   // { facingMode: { exact: 'environment' } }
   // video: true
-  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } }, audio: false })
     .then((stream) => {
       video.srcObject = stream;
       video.play();
@@ -63,9 +63,9 @@ function photoShoot() {
   const context = canvas.getContext("2d");
   //将 canvas 投到页面上
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  if (images.length >= 3) {
+  if (images.length >= 9) {
     // 报错：已到上传个数上限，无法继续添加，并返回
-    return alert("已到上传个数上限，无法继续添加");
+    return alert("追加できません。アップロードできる数は９枚までです。");
   }
   addPhotoHtml(canvas);
 }
@@ -86,7 +86,7 @@ function addPhotoHtml(canvas) {
   const img = document.createElement("img");
   img.src = canvas.toDataURL("image/png");
   img.style.border = "1px solid black";
-  img.style.width = "320px";
-  img.style.height = "240px";
+  img.style.width = "160px";
+  img.style.height = "120px";
   photoContainer.appendChild(img);
 }
