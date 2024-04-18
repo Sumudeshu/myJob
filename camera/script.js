@@ -80,9 +80,6 @@ function addPhotoHtml(canvas) {
   const span = document.createElement("span");
   span.className = 'icon-cancel-circle';
   img.src = canvas.toDataURL("image/png");
-  // img.style.border = "1px solid black";
-  // img.style.width = "320px";
-  // img.style.height = "240px";
   div.appendChild(img);
   div.appendChild(span)
   photoContainer.appendChild(div);
@@ -92,4 +89,60 @@ function addPhotoHtml(canvas) {
   span.addEventListener('click', function () {
     div.parentNode.removeChild(div);
   })
+  // 放大
+  img.addEventListener('click', function () {
+    //获取图片的宽和高
+    iw = this.width;
+    ih = this.height;
+    //获取屏幕的宽和高
+    sw = document.documentElement.clientWidth;
+    sh = document.documentElement.clientHeight;
+    //动态的创建一个灰色的背景div，就是那个我们带点击后，大图后面的那个灰色的那个背景，当然灰色是可以自由设置的
+    const gdiv = document.createElement('div');
+    gdiv.id = 'gray';
+    gdiv.style.height = sh + 'px';
+    gdiv.style.width = sw + 'px';
+    document.body.appendChild(gdiv);
+    //创建动态的图片对象，将该对象的src赋值为原图的src,这就是来创建我们放大后看大的那个图片
+    const oimg = document.createElement('img');
+    const span = document.createElement("span");
+    span.className = 'icon-cancel-circle';
+    oimg.src = this.src;
+    oimg.width = (sw + iw) / 2;
+    oimg.height = oimg.width / iw * ih;
+    oimg.style.position = 'absolute';
+    oimg.style.top = (2 * sh * iw - sw * ih - iw * ih) / (4 * iw) + 'px';
+    oimg.style.left = (sw - iw) / 4 + 'px';
+    oimg.style.zIndex = "10";
+
+    span.style.top = oimg.style.top;
+    span.style.right = oimg.style.left
+    
+  
+    span.addEventListener('click', function () {
+      div.parentNode.removeChild(div);
+      document.body.removeChild(this);
+      document.body.removeChild(oimg);
+      document.body.removeChild(gdiv);
+    });
+
+    document.body.appendChild(oimg);
+    document.body.appendChild(span);
+    //删除动态的图片和对象，就是我们点击放大后，再次点击的时候，放大的图片会被删除，并且后面的那个背景也会随之删除，这个方法就是为了完成这个效果
+    oimg.addEventListener('click', function () {
+      document.body.removeChild(span);
+      document.body.removeChild(this);
+      document.body.removeChild(gdiv);
+    });
+  })
+}
+//设置图片的位置来适应窗口的大小
+window.onresize = function () {
+  sh = document.documentElement.clientHeight;
+  sw = document.documentElement.clientWidth;
+  gdiv.style.width = sw + 'px';
+  gdiv.style.height = sh + 'px';
+  //更改图片的位置
+  oimg.style.top = (sh - ih) / 2 + 'px';
+  oimg.style.left = (sw - iw) / 2 + 'px';
 }
