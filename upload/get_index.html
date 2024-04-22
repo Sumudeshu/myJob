@@ -68,15 +68,28 @@
             for (var i = 0; i < jsonData.length; i++) {
                 var obj = jsonData[i];
                 str += `<tr>
-                <td>${obj.id}</td>
-                <td>${obj.name}</td>
-                <td>
-                    <input type="button" value="删除" οnclick="del(${obj.id})">
-                    <input type="button" value="修改" οnclick="getObj(${obj.id})">
-                </td>
-            </tr>`;
+                    <td>${obj.id}</td>
+                    <td>${obj.name}</td>
+                    <td>
+                        <input type="button" class='delete' value="删除">
+                        <input type="button" class='update' value="修改">
+                    </td>
+                </tr>`;
             }
-            tr.innerHTML = str;
+        tr.innerHTML = str;
+        const deletes = document.getElementsByClassName('delete');
+        for (let i = 0; i < deletes.length; i++) {
+            deletes[i].addEventListener('click', function() {
+                const tr = deletes[i].parentNode.parentNode;
+                const tdId = tr.firstElementChild;
+                const id = tdId.textContent;
+                del(id);
+            });
+        }
+        const updates = document.getElementsByClassName('update');
+        for (let i = 0; i < update.length; i++) {
+            update[i].addEventListener('click', update);
+        }
     } 
 
     function add() {
@@ -107,6 +120,20 @@
             alert("add student success")
         })
         .catch(error => console.error('Error:', error));
+    }
+
+    // 删除
+    function del(id) {
+        fetch(`http://localhost:8080/deleteStudentById/${id}`, {method: "DELETE"})
+        .then(response => response.json())
+        .then(data => console.log(json))
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    // 修改
+    function update(id) {
+
     }
 </script>
 </body>
