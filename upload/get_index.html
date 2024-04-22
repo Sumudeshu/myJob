@@ -30,7 +30,7 @@
     <input type="text" name="id" id="id">
     <br> 姓名：
     <input type="text" name="name" id="name">
-    <input type="button" value="add student" onclick="makePostRequest()">
+    <input type="button" value="submit" onclick="makePostRequest()">
 </form>
 
 
@@ -95,7 +95,10 @@
             body: JSON.stringify(data),
         })
         .then(response => response.json())
-        .then(json => console.log(json))
+        .then(json => {
+            console.log(json);
+            alert("add student success")
+        })
         .catch(error => console.error('Error:', error));
     }
 </script>
