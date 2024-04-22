@@ -10,7 +10,9 @@
   </style>
 </head>
 <body>
-<button onclick="makeGetRequest()">get students table</button>
+<button onclick="makeGetRequest()">get all students</button>
+<input type="text" name="id_search" id="id_search" placeholder="id">
+<button onclick="makeGetRequestById()">search student</button>
 <div id="myTable" class="hidden">
     <table id="data-table">
         <thead>
@@ -41,25 +43,26 @@
             .then(data => jsonToTable(data))
             .catch(error => console.error('Error:', error));
     }
-    
+
+    function makeGetRequestById() {
+        var id = document.getElementById('id_search').value;;
+ 
+        fetch(`http://localhost:8080/search/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // 配列に変更する
+            let arr = [];
+            arr[0] = data;
+            jsonToTable(arr);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
     function jsonToTable(jsonData) {
         var div = document.getElementById('myTable');
         div.classList.remove('hidden'); // 移除hidden类，显示div
-        // div.style.display = "block";
-        // // 获取表格的tbody元素
-        // var tbody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-        
-        // // 遍历JSON数据并创建表格行
-        // for (var i = 0; i < jsonData.length; i++) {
-        // // 创建新行
-        // var tr = tbody.insertRow();
-        
-        // // 为每个属性创建单元格并填充数据
-        // for (var prop in jsonData[i]) {
-        //     var td = tr.insertCell();
-        //     td.textContent = jsonData[i][prop];
-        // }
-        // }
         var tr = document.getElementById("stuBody");
             var str = ``;
             for (var i = 0; i < jsonData.length; i++) {
@@ -67,6 +70,10 @@
                 str += `<tr>
                 <td>${obj.id}</td>
                 <td>${obj.name}</td>
+                <td>
+                    <input type="button" value="删除" οnclick="del(${obj.id})">
+                    <input type="button" value="修改" οnclick="getObj(${obj.id})">
+                </td>
             </tr>`;
             }
             tr.innerHTML = str;
