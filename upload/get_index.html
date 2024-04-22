@@ -71,8 +71,9 @@
                     <td>${obj.id}</td>
                     <td>${obj.name}</td>
                     <td>
-                        <input type="button" class='delete' value="删除">
-                        <input type="button" class='update' value="修改">
+                        <input type="button" class='data delete' value="删除">
+                        <input type="button" class='data update' value="修改">
+                        <input type="button" class='data confirmData hidden' value="确认提交">
                     </td>
                 </tr>`;
             }
@@ -87,8 +88,26 @@
             });
         }
         const updates = document.getElementsByClassName('update');
-        for (let i = 0; i < update.length; i++) {
-            update[i].addEventListener('click', update);
+        for (let i = 0; i < updates.length; i++) {
+            updates[i].addEventListener('click', function() {
+                const tr = updates[i].parentNode.parentNode;
+                const tdId = tr.firstElementChild;
+                const tdName = tr.getElementsByTagName('td')[1];
+                const id = tdId.textContent;
+                let name = tdName.textContent;
+                // tdId.innerHTML = `<input type="text" placeholder=${id}>`;
+                tdName.innerHTML = `<input type="text" placeholder=${name}>`;
+                // 隐藏前两个按钮，打开第3个按钮
+                const inputs = tr.getElementsByClassName('data');
+                for (let j = 0; j < inputs.length - 1; j++) {
+                    inputs[j].classList.add("hidden");
+                }
+                const confirmButton = inputs[2];
+                confirmButton.classList.remove('hidden');
+                confirmButton.addEventListener('click', function() {
+                    update(this);
+                });
+            });
         }
     } 
 
@@ -132,8 +151,30 @@
         });
     }
     // 修改
-    function update(id) {
+    function update(tdConfirmButton) {
+        const tr = tdConfirmButton.parentNode.parentNode;
+        const tdId = tr.firstElementChild;
+        const tdName = tr.getElementsByTagName('td')[1];
+        const id = tdId.textContent;
+        let name = tdName.firstElementChild.value;
+        var url = "http://localhost:8080/updateUserById";
+        var data = {
+            id: id,
+            name: name
+        };
 
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>
 </body>
