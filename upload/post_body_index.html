@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>POST Request Example</title>
+<script>
+    function makePostRequest() {
+        var url = "http://localhost:8080/file2/testPostBody";
+        var data = { "id": 1, "name": "su" };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</head>
+<body>
+<button onclick="makePostRequest()">Send POST Request</button>
+</body>
+</html>

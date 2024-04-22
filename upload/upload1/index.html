@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>
+        HTML | File upload example
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    </script>
+</head>
+ 
+ <body>
+ <h2>Hi Users Choose your file and Click upload.</h2>
+  <!-- Input Form Elements HTML 5 -->
+  <input id="fileupload" type="file" name="fileupload" /> 
+  <button id="upload-button" onclick="uploadFile()"> Upload file </button>
+
+  <!-- File Upload Logic JavaScript -->
+  <script>
+    function uploadFile() {
+        fetch('http://localhost:6272/file2/test') // 替换为你的Spring Boot应用的URL和端口
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    // function uploadFile() {
+    //     var url = "http://localhost:6272/file2/stu";
+    //     var data = {"id": 1, "name": "su"};
+    //     fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //     .then(response => response.json())
+    //     .then(json => console.log(json))
+    //     .catch(error => console.error('Error:', error));
+    // }
+
+    // async function uploadFile() {
+    //     //creating form data object and append file into that form data
+    // let formData = new FormData(); 
+    // formData.append("file", fileupload.files[0]);
+    //     //network request using POST method of fetch
+    // await fetch('http://localhost:6272/file2/upload', {
+    //     method: "POST", 
+    //     data :JSON.stringify(formData),
+    //     // 定义发送请求的数据格式为JSON字符串
+    //     contentType : "application/json;charset=UTF-8",
+    //     //定义回调响应的数据格式为JSON字符串,该属性可以省略
+    //     dataType : "json",
+    //     // body: formData
+    // }); 
+    // alert('You have successfully upload the file!');
+    // }
+
+    // function uploadFile() {
+    //    var formData = new FormData();
+    //    formData.set("file", document.getElementById('fileupload').files[0]);
+
+    //     $.ajax({
+    //     url: "http://localhost:6272/file2/upload",//后端Controller层处理图片文件的对应接口
+    //     type: "post",
+    //     data: formData,//发送的数据为FormData类
+    //     async: false,
+    //     cache: false,
+    //     processData: false,   // 不处理发送的数据
+    //     contentType: false,   // 不设置Content-Type请求头
+    //     success:function (data) {
+    //         $("#path").text(data);
+    //         console.log(data);
+    //     },
+    //     error: function(error){
+    //         imagestring = "";
+    //         alert("上传图片出错！");
+    //     }
+    //     });
+    // }
+  </script>
+
+ </body> 
+<html>

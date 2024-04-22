@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GET Request Example</title>
+<style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<button onclick="makeGetRequest()">Send GET Request</button>
+<div id="myTable" class="hidden">
+    <table id="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody id="stuBody">
+          <!-- 数据将被动态插入到这里 -->
+        </tbody>
+      </table>
+</div> 
+
+<script>
+    function makeGetRequest() {
+        fetch("http://localhost:8080/test2")
+            .then(response => response.json())
+            .then(data => jsonToTable(data))
+            .catch(error => console.error('Error:', error));
+    }
+    
+    function jsonToTable(jsonData) {
+        var div = document.getElementById('myTable');
+        div.classList.remove('hidden'); // 移除hidden类，显示div
+        // div.style.display = "block";
+        // // 获取表格的tbody元素
+        // var tbody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+        
+        // // 遍历JSON数据并创建表格行
+        // for (var i = 0; i < jsonData.length; i++) {
+        // // 创建新行
+        // var tr = tbody.insertRow();
+        
+        // // 为每个属性创建单元格并填充数据
+        // for (var prop in jsonData[i]) {
+        //     var td = tr.insertCell();
+        //     td.textContent = jsonData[i][prop];
+        // }
+        // }
+        var tr = document.getElementById("stuBody");
+            var str = ``;
+            for (var i = 0; i < jsonData.length; i++) {
+                var obj = jsonData[i];
+                str += `<tr>
+                <td>${obj.id}</td>
+                <td>${obj.name}</td>
+            </tr>`;
+            }
+            tr.innerHTML = str;
+    } 
+    
+</script>
+</body>
+</html>

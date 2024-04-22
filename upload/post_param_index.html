@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>POST Request Example</title>
+<script>
+    function makePostRequest() {
+        let url = 'http://localhost:8080/file2/testPostParams';
+        let params = new URLSearchParams();
+        params.append('id', '1');
+        params.append('name', 'su');
+        
+        fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</head>
+<body>
+<button onclick="makePostRequest()">Send POST Request</button>
+</body>
+</html>
