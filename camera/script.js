@@ -152,3 +152,30 @@ window.onresize = function () {
   oimg.style.top = (sh - ih) / 2 + 'px';
   oimg.style.left = (sw - iw) / 2 + 'px';
 }
+
+// upload picture
+function makePostRequest() {
+  //获取表单输入框数据
+  // 获取点击上传的按钮
+  var formData = new FormData();
+  var imgs = document.querySelectorAll('#photo_container img');
+  const formData = new FormData();
+  // 遍历所有的文件输入
+  for (var i = 0; i < imgs.length; i++) { 
+    formData.append('image', imgs[i].src); // 将文件添加到FormData中
+  }
+
+  fetch("http://localhost:8080/file2/uploadPhotos", {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+      if (response.status === 200) {
+          alert("upload success");
+      }
+  })
+  .catch(error => {
+      console.log("###########################" + error);
+      console.error('Error:', error)
+  });
+}
