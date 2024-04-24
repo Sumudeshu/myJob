@@ -24,7 +24,7 @@ function initVideoCamera() {
   // リアカメラをデフォルトに設定
   // { facingMode: { exact: 'environment' } }
   // video: true
-  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } }, audio: false })
     .then((stream) => {
       video.srcObject = stream;
       video.play();
@@ -155,19 +155,23 @@ window.onresize = function () {
 
 // upload picture
 function makePostRequest() {
-  //获取表单输入框数据
+  // 获取表单输入框数据
   // 获取点击上传的按钮
   var formData = new FormData();
-  var imgs = document.querySelectorAll('#photo_container img');
-  const formData = new FormData();
+  let imgs = document.getElementById('photo_container').getElementsByTagName('img');
   // 遍历所有的文件输入
+  const arr = [];
   for (var i = 0; i < imgs.length; i++) { 
-    formData.append('image', imgs[i].src); // 将文件添加到FormData中
+    const src = imgs[i].src;
+    arr.push(src); // 将文件添加到FormData中
   }
 
   fetch("http://localhost:8080/file2/uploadPhotos", {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(arr)
   })
   .then(response => {
       if (response.status === 200) {
