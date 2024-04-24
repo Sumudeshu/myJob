@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="camera1.html">撮影</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="upload_history.html">アップロード履歴</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+     
+    <button onclick="makeGetRequest()">get all historys</button>
+    <input type="text" name="id_search" id="id_search" placeholder="id">
+    <button onclick="">search</button>
+
+    <div id="myTable">
+        <table id="data-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>userName</th>
+                <th>picName</th>
+                <th>picPath</th>
+                <th>createTime</th>
+                <th>modifyTime</th>
+            </tr>
+            </thead>
+            <tbody id="picBody">
+            <!-- 数据将被动态插入到这里 -->
+            </tbody>
+        </table>
+    </div>
+      
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+    <script src="script2.js"></script>
+</body>
+</html>
