@@ -24,21 +24,21 @@
         </div>
       </nav>
      
-    <button onclick="makeGetRequest()">get all historys</button>
-    <input type="text" name="id_search" id="id_search" placeholder="id">
-    <button onclick="">search</button>
-
-    <div id="myTable">
-        <table class="table" id="data-table">
+    <div id="myTable" class="container">
+        <button onclick="makeGetRequest()">get all historys</button>
+        <input type="text" name="id_search" id="id_search" placeholder="id">
+        <button onclick="">search</button>
+    
+        <table class="table table-bordered table-hover table-striped" style="word-break:break-all; word-wrap:break-all;" id="data-table">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>userName</th>
-                <th>picName</th>
-                <th>picPath</th>
-                <th>pic</th>
-                <th>createTime</th>
-                <th>modifyTime</th>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-1">userName</th>
+                <th class="col-md-2">picName</th>
+                <th class="col-md-2">picPath</th>
+                <th class="col-md-2">pic</th>
+                <th class="col-md-2">createTime</th>
+                <th class="col-md-2">modifyTime</th>
             </tr>
             </thead>
             <tbody id="picBody">
